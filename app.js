@@ -4,7 +4,8 @@
 
 var express = require('express')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , database = require('./database');
 
 var store = require("./routes/store");
 var app = express();
@@ -49,6 +50,8 @@ app.get("/item/:id", function(req, res){
     + '<script src="/javascripts/jquery.form.js"></script>'
     + '<script src="/javascripts/upload.js"></script>'
     );
+    
+    app.set('name', req.session.username);
 });
 
 // show general pages
@@ -82,10 +85,71 @@ app.post('/item/post', function(req, res) {
       });
     }
   );
+  
+  var options = {
+    port:      app.get('port'),
+    setup:     true, 
+    basicAuth: null
+  }
+  
+  var data = {
+    name:       req.files.userFile.name,
+    uploader:   app.get('name'),
+    tags:       'a',
+    url:        'http://'
+  }
+  
+  database.setupAdd(options, data, function (err, db) {
+    if (err) {
+      //return callback(err);
+    }
+  });
 });
 
 app.post("/", store.home_post_handler);
+/*
+exports.createServer = function (port, database) {
+  var resource = new entry.Entry(database),
+      router = service.createRouter(resource),
+      server;
+
+  server = union.createServer({
+    before: [
+      function (req, res) {
+        //
+        // Dispatch the request to the router
+        //
+        winston.info('Incoming Request: ' + req.url);
+        router.dispatch(req, res, function (err) {
+          winston.info('Request errored: ' + req.url);
+          if (err) {
+            res.writeHead(404);
+            res.end();
+          }
+        });
+      }
+    ]
+  });
+  
+  if (port) {
+    server.listen(port);
+  }
+  
+  return server;
+};*/
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
+/*
+  var options = {
+    port:      app.get('port'),
+    setup:     true, 
+    basicAuth: null
+  }
+  
+  database.setup(options, function (err, db) {
+    if (err) {
+      //return callback(err);
+    }
+  });*/
 });
