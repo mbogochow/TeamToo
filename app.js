@@ -5,7 +5,9 @@
 var express = require('express')
   , http = require('http')
   , path = require('path')
-  , database = require('./lib/database');
+  , database = require('./lib/database')
+  , fs = require('fs')
+  , handlebars = require('handlebars');
 
 var store = require("./routes/store");
 var app = express();
@@ -29,34 +31,27 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-// app.get('/', routes.index);
-// app.get('/users', user.list);
+//simple function for loading a file and sending to a client
+//for use in app.<VERB> callbacks
+function sendFile(filename, res) {
+  fs.readFile('public/' + filename, function(err, data) {
+    if (err) return res.send('Could not open ' + filename + '...');
+    res.setHeader('Content-Type', 'text/html');
+    res.send(data);
+  });
+}
 
-
-app.get("/", store.home, function(req, res) {
-                  res.send("Get request being sent");
-             });
-// list of items
-app.get("/items", store.items);
-// show an individual item
-app.get("/item/:id", function(req, res){
-  res.send('<form method="post" id="uploadForm" enctype="multipart/form-data" action="post">'
-    //+ '<p>Title: <input type="text" name="title" /></p>'
-    + '<p>Upload File: <input type="file" id="userInput" name="userFile" /></p>'
-    //+ '<p><input type="submit" value="Upload" /></p>'
-    + '</form>'
-    + '<span id="status" />'
-    + '<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>'
-    + '<script src="/javascripts/jquery.form.js"></script>'
-    + '<script src="/javascripts/upload.js"></script>'
-    );
-    
-    app.set('name', req.session.username);
+//show index
+app.get('/', function(req,res) {
+  sendFile('index.html', res);
 });
 
-// show general pages
-app.get("/page", store.page);
+// show upload form
+app.get('/upload', function(req, res){
+  sendFile('upload.html', res);
+});
 
+//session logout
 app.get('/logout', function(req, res) {
     // delete the session variable
     delete req.session.username;
@@ -69,9 +64,7 @@ app.post('/item/post', function(req, res) {
  //console.log(process.cwd() + '/public');
   require('fs').rename(
     req.files.userFile.path,
-    process.cwd() + '/public' + 
-    //'C:/Users/mbogochow/Documents/School/Hackademy/Hackathon/fileUpload/public' + 
-    serverPath,
+    process.cwd() + '/public' + serverPath,
     function(error) {
       if(error) {
         res.send({
@@ -106,50 +99,39 @@ app.post('/item/post', function(req, res) {
   });
 });
 
-app.post("/", store.home_post_handler);
-/*
-exports.createServer = function (port, database) {
-  var resource = new entry.Entry(database),
-      router = service.createRouter(resource),
-      server;
-
-  server = union.createServer({
-    before: [
-      function (req, res) {
-        //
-        // Dispatch the request to the router
-        //
-        winston.info('Incoming Request: ' + req.url);
-        router.dispatch(req, res, function (err) {
-          winston.info('Request errored: ' + req.url);
-          if (err) {
-            res.writeHead(404);
-            res.end();
-          }
-        });
+app.get('/list', function(req, res) {
+  var context = {
+    title: "Listing stuff, wooo!",
+    files: [
+      {
+        title: "Dear Clarissa",
+        url: "files/clarissa.txt",
+        tags: [
+          "bitches ain't shit",
+          "Sowles, you sly dog",
+          "lorem",
+          "ipsum"
+        ]
+      },
+      {
+        title: "Brighton Boys",
+        url: "files/inthetrenches.txt",
+        tags: [
+          "pew pew",
+          "oh snap my leg's gone",
+          "a third tag"
+        ]
       }
     ]
+  };
+  fs.readFile('public/list.html', 'utf8', function(err, data) {
+    if (err) res.send('something got messed up...');
+    var template = handlebars.compile(data);
+    res.setHeader('Content-Type', 'text/html');
+    res.send(template(context));
   });
-  
-  if (port) {
-    server.listen(port);
-  }
-  
-  return server;
-};*/
+});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
-/*
-  var options = {
-    port:      app.get('port'),
-    setup:     true, 
-    basicAuth: null
-  }
-  
-  database.setup(options, function (err, db) {
-    if (err) {
-      //return callback(err);
-    }
-  });*/
 });
