@@ -1,0 +1,30 @@
+project management
+  * Specific Project ~
+  * Everyday work environment managing/updates
+training
+interactive/visual merger
+document patterns
+github for other services
+wiki-url
+diagnosis from symptoms
+C/C++ code manager/IDE
+  * Note/docs generator for C/C++
+    - Javadocs for C/C++
+Script generator
+  -Multiplatform
+
+
+
+
+
+
+* Point of Interest Proximity
+Query 2+ points of interest (restaurant, movies, particular store type, etc.)
+Calculate shortest/average distance between results for each individual query
+Factor in distance from closest or first destination from home
+
+
+* Shortest Possible Route
+When having multiple destinations on a trip, when order is not important, calculate
+which destinations should be travelled to first in order to have the shortest 
+possible route (time/distance).
