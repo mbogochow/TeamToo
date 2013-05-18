@@ -1,0 +1,18 @@
+PuTTY-User-Key-File-2: ssh-rsa
+Encryption: none
+Comment: rsa-key-20130518
+Public-Lines: 4
+AAAAB3NzaC1yc2EAAAABJQAAAIEAiIipmfljmFKCr1gSGKXf+W5WVfELfw6q52iz
+4H24i5krNrcF/wjGQ9BM8z1xXsVpBUX4ju0NozI/kyP6d5cn/stBg+9c0QvEJrlC
+GhxfMYAOaAwylmeohr8WsefKZxlbBY6UMILLx2KAJlmYst1H2s/cvGSzjwnUkEGG
+1BKNNKs=
+Private-Lines: 8
+AAAAgH12qbAVmco9+4xexIVaJ8KcvgnIvnTBXsbO6ntDGEjtnVTfiPgxk5hC3u1b
+DjtpS7+oFNZdSs1QxMxmQBrd7WVK6Bn8kXCEIteWGCUeMrpwG/wpc1440JrFl3mK
+r3V8/bJywMSINMX+haFdzpNx/ji3GVIvAzT/xZKsv3L9XjMNAAAAQQDvD7WVlzEb
+P00RifPga0mczybSIrKS/VwNlF5wo073CTULBtuWlji6lOvNmK74timKHALHuErY
+yDmQryuGcI65AAAAQQCSNTmZvfDKIrLPrO7IRDsd85/BqO48fNyeP15CHNwLPbt/
+JPeFKU3HpRoARNvohJGrrLMAaLexS+vHrPa0n4yDAAAAQFXl4Zh+r3hW9ZWsXTZo
+GArYExEdHVYjroU9VSXh2dudwUcj8ZUjh/Qy/v8MzzbyDRUYnkooTnaOTLPIWt1L
+AAI=
+Private-MAC: e99e0cd7a8a1a2d1bd2d7b11e334f4f2033d8db1

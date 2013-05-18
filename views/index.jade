@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  form(name="uploadForm", action="/files", method="post", enctype="multipart/form-data")
+  input(type="file", id="userInput", name="userFile")
+  
+  

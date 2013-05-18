@@ -17,16 +17,15 @@ exports.home_post_handler = function(req, res) {
     res.redirect('/');
 };
 
-
 // our 'database'
 var items = {
+    FILE:{name:'Upload File'}/*
     SKN:{name:'Shuriken', price:100},
     ASK:{name:'Ashiko', price:690},
     CGI:{name:'Chigiriki', price:250},
     NGT:{name:'Naginata', price:900},
-    KTN:{name:'Katana', price:1000}
+    KTN:{name:'Katana', price:1000}*/
 };
-
 
 // handler for displaying the items
 exports.items = function(req, res) {
@@ -45,12 +44,6 @@ exports.item = function(req, res) {
         res.render('item', { title: 'Hackademy - ' + name, username: req.session.username, name:name, price:price });
     }
 };
-
-
-
-
-
-
 
 exports.page = function(req, res) {
     var name = req.query.name;
