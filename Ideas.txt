@@ -12,7 +12,7 @@ C/C++ code manager/IDE
     - Javadocs for C/C++
 Script generator
   -Multiplatform
-
+Idea/project collaboration source
 
 * Jesus Game
 
