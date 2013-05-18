@@ -5,7 +5,7 @@
 var express = require('express')
   , http = require('http')
   , path = require('path')
-  , database = require('./database');
+  , database = require('./lib/database');
 
 var store = require("./routes/store");
 var app = express();
