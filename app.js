@@ -148,7 +148,7 @@ app.get('/list', function(req, res) {
     if (err) res.send({error: 'Failed to get list from db'});
    
     var context = {
-      files: arr
+      files: arr.reverse()
     }
 
     fs.readFile('public/list.html', 'utf8', function(err, data) {
