@@ -163,27 +163,27 @@ app.get('/list', function(req, res) {
     }
    // console.dir(arr);
    
-  /*  var context2 = {
-      title: 'Database Contents',
+    var context2 = {
       files: arr
     }
+    console.dir(context2.files[0].value);
     //database.listAll2(app.get('db'), function (err, b){});
     fs.readFile('public/list.html', 'utf8', function(err3, data) {
       if (err3) res.send('something got messed up...');
       var template = handlebars.compile(data);
       res.setHeader('Content-Type', 'text/html');
       res.send(template(context2));
-    });*/
+    });
   });
-  
+  /*
   database.listAll2(app.get('db'), function (err, res) {
     if (err) {
       res.send({error: 'Failed to get list from db'});
       return;
     }
-    
+    */
   //  console.dir(res);
-  });
+  //});
 });
 
 http.createServer(app).listen(app.get('port'), function(){

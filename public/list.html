@@ -15,18 +15,19 @@
           <h1>Files Uploaded</h1>
           <table class="table table-condensed">
             The following is a list of scanned documents and their list of relevant tags.
+              {{#each files}}
               <tr>
                 <td>
-                  <a href="{{this.url}}"><h3>{{this.title}}</h3></a>
+                  <a href="{{this.value.attributes.url}}"><h3>{{this.value.attributes.title}}</h3></a>
                   <br>
                   <ul class="inline">
-                    {{#each this.tags}}
+                    {{#each this.value.attributes.tags}}
                     <li><span class="label label-important">{{this}}</span></li>
                     {{/each}}
                   </ul>
                 </td>
               </tr>
-            <!--{{/each}}-->
+            {{/each}}
           </table>
         </div>
       </div>
