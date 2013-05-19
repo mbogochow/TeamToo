@@ -96,6 +96,7 @@ app.get('/logout', function(req, res) {
 });
 
 app.post('/files', function(req, res) {
+//console.dir(req.body.tags);
   var serverPath = '/files/' + req.files.userFile.name;
  //console.log(process.cwd() + '/public');
   require('fs').rename(
@@ -118,7 +119,7 @@ app.post('/files', function(req, res) {
   var data = {
     name:       req.files.userFile.name,
     uploader:   app.get('name'),
-    tags:       ['a', 'b', 'c'],
+    tags:       (req.body.tags).split(','),
     url:        'files/' + req.files.userFile.name
   }
  
