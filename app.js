@@ -84,7 +84,7 @@ app.get('/upload', function(req, res){
       req.session.username === '')
     return res.redirect('/');
   sendFile('upload.html', res);
-  app.set('name', req.session.username);
+  //app.set('name', req.session.username);
 });
 
 //session logout
@@ -95,7 +95,8 @@ app.get('/logout', function(req, res) {
     res.redirect('/');
 });
 
-app.post('/files', function(req, res) {
+app.post('/upload2', function(req, res) {
+//console.dir(req);
   var serverPath = '/files/' + req.files.userFile.name;
  //console.log(process.cwd() + '/public');
   require('fs').rename(
@@ -117,8 +118,8 @@ app.post('/files', function(req, res) {
   
   var data = {
     name:       req.files.userFile.name,
-    uploader:   app.get('name'),
-    tags:       ['a', 'b', 'c'],
+    uploader:   req.session.username,
+    tags:       (req.body.tags).split(','),
     url:        'files/' + req.files.userFile.name
   }
  
@@ -130,6 +131,12 @@ app.post('/files', function(req, res) {
     //app.set('db', db);
     // Migh need to periodically check database in case it was changed manually
   });
+    res.redirect('/list');
+});
+
+app.post('/redir', function(req, res) {
+console.dir('here');
+  res.redirect('/list');
 });
 
 app.get('/list', function(req, res) {
@@ -160,12 +167,14 @@ app.get('/upload2', function(req,res) {
   sendFile('upload2.html', res);
 });
 
+/*
 app.post('/upload2', function(req,res) {
   console.dir(req.files.file._writeStream.path);
   //console.dir(req.body.tags.split(/[\W,]+/));
   //console.dir(req.session.username);
   res.redirect('/list');
 });
+*/
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

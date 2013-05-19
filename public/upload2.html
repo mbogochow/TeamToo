@@ -7,19 +7,25 @@
   <body>
     <div class="row-fluid">
       <div class="well span6 offset3">
-        <form action="/upload2" method="post" enctype="multipart/form-data" class="form-horizontal">
+        <form id="uploadForm" action="/upload2" method="post" enctype="multipart/form-data" class="form-horizontal">
           <legend>File Upload</legend>
           <div class="control-group">
             <label class="control-label">File</label>
-            <div class="controls"><input type="file" name="file" /></div>
+            <div class="controls"><input type="file" name="userFile" id="userInput"/></div>
           </div>
           <div class="control-group">
             <label class="control-label">Tags <small>(comma separated)</small></label>
-            <div class="controls"><input type="text" class="input" name="tags" /></div>
+            <div class="controls"><input type="text" class="input" name="tags" id="tagger"/></div>
           </div>
-            <center><input type="submit" class="btn btn-primary" /></center>
+            <center>
+              <input type="submit" action="/upload2" class="btn btn-primary" />
+              <!--<input id="back" type="submit" action="/redir" class="btn btn-primary"/>-->
+            </center>
         </form>
       </div>
     </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="/javascripts/jquery.form.js"></script>
+    <script src="/javascripts/upload.js"></script>
   </body>
 </html>

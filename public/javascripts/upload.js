@@ -1,8 +1,11 @@
+//http://markdawson.tumblr.com/post/18359176420/asynchronous-file-uploading-using-express-and-node-js
+
 $(document).ready(function() {
 
-    status('Choose a file :)');
+    //status('Choose a file :)');
 
     // Check to see when a user has selected a file
+    /*
     var timerId;
     timerId = setInterval(function() {
         if($('#userInput').val() !== '') {
@@ -10,10 +13,10 @@ $(document).ready(function() {
 
             $('#uploadForm').submit();
         }
-    }, 500);
+    }, 500);*/
 
     $('#uploadForm').submit(function() {
-        status('uploading the file ...');
+       // status('uploading the file ...');
         
         $(this).ajaxSubmit({
             // Note: can't use JSON otherwise IE8 will pop open a dialog
@@ -21,7 +24,7 @@ $(document).ready(function() {
             dataType: 'text',
             
             error: function(xhr) {
-                status('Error: ' + xhr.status);
+               // status('Error: ' + xhr.status);
             },
             
             success: function(response) {
@@ -29,18 +32,19 @@ $(document).ready(function() {
                   response = $.parseJSON(response);
               }
               catch(e) {
-                  status('Bad response from server');
+                 // status('Bad response from server');
                   return;
               }
 
               if(response.error) {
-                  status('Problem writing file');
+                // status('Problem writing file');
                   return;
               }
 
               var imageUrlOnServer = response.path;
+              $('#back').submit();
               
-              status('Success, file uploaded.');// to: ' + imageUrlOnServer);
+             // status('Success, file uploaded.');// to: ' + imageUrlOnServer);
               //$('<img/>').attr('src', imageUrlOnServer).appendTo($('body'));
             }
         });
