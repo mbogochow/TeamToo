@@ -84,7 +84,7 @@ app.get('/upload', function(req, res){
       req.session.username === '')
     return res.redirect('/');
   sendFile('upload.html', res);
-  app.set('name', req.session.username);
+  //app.set('name', req.session.username);
 });
 
 //session logout
@@ -96,7 +96,7 @@ app.get('/logout', function(req, res) {
 });
 
 app.post('/files', function(req, res) {
-//console.dir(req.body.tags);
+//console.dir(req);
   var serverPath = '/files/' + req.files.userFile.name;
  //console.log(process.cwd() + '/public');
   require('fs').rename(
@@ -118,7 +118,7 @@ app.post('/files', function(req, res) {
   
   var data = {
     name:       req.files.userFile.name,
-    uploader:   app.get('name'),
+    uploader:   req.session.username,
     tags:       (req.body.tags).split(','),
     url:        'files/' + req.files.userFile.name
   }
