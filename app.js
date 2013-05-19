@@ -61,6 +61,23 @@ app.get('/', function(req,res) {
   sendFile('index.html', res);
 });
 
+//respond to submitted username
+app.post('/', function(req,res) {
+  console.log(req.body.username);
+  req.session.username = req.body.username;
+  res.redirect('/list');
+});
+
+//show 'about us' page
+app.get('/aboutus', function(req,res) {
+  sendFile('aboutus.html', res);
+});
+
+//show 'contact us' page
+app.get('/contactus', function(req,res) {
+  sendFile('contactus.html', res);
+});
+
 // show upload form
 app.get('/upload', function(req, res){
   sendFile('upload.html', res);
@@ -94,7 +111,7 @@ app.post('/files', function(req, res) {
       });
     }
   );
- 
+  
   var data = {
     name:       req.files.userFile.name,
     uploader:   app.get('name'),
