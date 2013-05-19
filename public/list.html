@@ -2,30 +2,30 @@
 <html>
   <head>
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="./css/customizers.css" rel="stylesheet">
-    <style>
-       body { background-color: #111; }
-       .content { background-color: #899; }
-    </style>      
+    <link href="css/customizers.css" rel="stylesheet">      
   </head>
   
   <body>
-    <div class="row">
-      <div class="span11 offset3">
+    <div class="row-fluid">
+      <div class="span6 offset3 well">
         <div class="content">
           <h1>Files Uploaded</h1>
+          <p>
+            The following is a list of scanned documents and their list of relevant tags.<br>
+            <a href="/upload2">Upload your own!</upload>
+          </p>
           <table class="table table-condensed">
-            The following is a list of scanned documents and their list of relevant tags.
               {{#each files}}
               <tr>
                 <td>
-                  <a href="{{this.value.attributes.url}}"><h3>{{this.value.attributes.title}}</h3></a>
-                  <br>
-                  <ul class="inline">
-                    {{#each this.value.attributes.tags}}
-                    <li><span class="label label-important">{{this}}</span></li>
-                    {{/each}}
-                  </ul>
+                  <center>
+                    <a href="{{this.value.attributes.url}}"><p>{{this.value.attributes.title}}</p></a>
+                    <ul class="inline">
+                      {{#each this.value.attributes.tags}}
+                      <li><span class="label">{{this}}</span></li>
+                      {{/each}}
+                    </ul>
+                  </center>
                 </td>
               </tr>
             {{/each}}
