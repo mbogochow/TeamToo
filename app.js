@@ -174,9 +174,9 @@ app.post('/upload2', function(req,res) {
     name:       req.files.file.name,
     uploader:   req.session.username,
     tags:       (req.body.tags).split(','),
-    url:        'files/' + req.files.file.name
+    url:        'files' + req.files.file._writeStream.path.split('\\files')[1]
   }
- 
+ console.dir('files' + req.files.file._writeStream.path.split('\\files')[1]);
   database.addEntry(app.get('db'), data, function (err, db) {
     if (err) {
       res.send({error: 'Could not add entry in db'});
