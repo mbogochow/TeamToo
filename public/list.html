@@ -3,17 +3,18 @@
   <head>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <style>
-      body: { background-color: #666; }
-      .content { background-color: #fff; }
+       body { background-color: #111; }
+       .content { background-color: #899; }
     </style>      
   </head>
+  
   <body>
     <div class="row">
-      <div class="span8 offset2">
+      <div class="span11 offset3">
         <div class="content">
-          <h1>{{title}}</h1>
+          <h1>Files Uploaded</h1>
           <table class="table table-condensed">
-            {{#each files}}
+            The following is a list of scanned documents and their list of relevant tags.
               <tr>
                 <td>
                   <a href="{{this.url}}"><h3>{{this.title}}</h3></a>
@@ -25,7 +26,7 @@
                   </ul>
                 </td>
               </tr>
-            {{/each}}
+            <!--{{/each}}-->
           </table>
         </div>
       </div>

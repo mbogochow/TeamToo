@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
 	<head>	
-		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.css"/>
+		<!--<link rel="stylesheet" href="/libs/bootstrap/css/amelia.bootstrap.min.css">
+		<link rel="stylesheet" href="/libs/bootstrap/css/bootstrap-responsive.min.css">
+		<link rel="stylesheet" href="/stylesheets/style.css"> -->		
 		
 	</head>
 	
 	<body>
-	  <div class="row-fluid">
-	    <br>
-	    <div class="hero-unit span8 offset2">
+	  <div class="row">
+	    <div class="hero-unit span7 offset4">
         <center>
 	        <h1>Document Similarity Finder</h1>
 	        <br/>
@@ -18,29 +20,37 @@
       </div>
     </div>
 	
-    <div class="row-fluid">
-      <div class="well span4 offset4 text-center">
-		      <form>
-			      <label>Please enter your username below</label>
-			      <input type="text" class="span10" /> <br>
-			      <button class="btn btn-primary">Submit</button>
-			      <button class="btn ">Clear</button>
-		      </form>
-      </div>
+    <div class="row">
+	    <center>
+		    <form class="well span4 offset6">
+			    <label>Please enter your username below</label>
+			    <input type="text" class="span3" id="username" /> <br>
+			    <button class="btn btn-primary">Submit</button>
+			    <button class="btn" id="clear_button">Clear</button>
+		    </form>
+	    </center>
     </div>
 	
-	  <div class="row-fluid">
-	    <div class="span2 offset5">
+	  <div class="row">
+	    <div class="span8 offset4">
 	      <center>
 	        <ul class="inline">
-		        <li><a href="#">About us</a></li>
-		        <li><a href="#">Contact us</a></li>	
+		        <li><a href="./aboutus.html">About us</a></li>
+		        <li><a href="./contactus.html">Contact us</a></li>	
 	        </ul>
 	      </center>
       </div>
     </div>
-
-		<script src="js/bootstrap.js"></script>
+		
+		
+		
+		<script src="javascripts/jquery-1.9.1.min.js"></script>
+		<script src="javascripts/bootstrap.min.js"></script>
+		<script> 
+		$("#clear_button").click(function(e){
+			$("#username").val("");
+			});
+		</script>
 	</body>
 	
 	
