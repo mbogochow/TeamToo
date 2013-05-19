@@ -31,6 +31,21 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+var options = {
+  port:      app.get('port'),
+  setup:     false, 
+  basicAuth: null
+}
+
+database.setup(options, function (err, db) {
+  if (err) {
+    //return callback(err);
+  }
+  else {
+    app.set('db', db);
+  }
+});
+
 //simple function for loading a file and sending to a client
 //for use in app.<VERB> callbacks
 function sendFile(filename, res) {
@@ -49,6 +64,7 @@ app.get('/', function(req,res) {
 // show upload form
 app.get('/upload', function(req, res){
   sendFile('upload.html', res);
+  app.set('name', req.session.username);
 });
 
 //session logout
@@ -59,7 +75,7 @@ app.get('/logout', function(req, res) {
     res.redirect('/');
 });
 
-app.post('/item/post', function(req, res) {
+app.post('/files', function(req, res) {
   var serverPath = '/files/' + req.files.userFile.name;
  //console.log(process.cwd() + '/public');
   require('fs').rename(
@@ -78,28 +94,26 @@ app.post('/item/post', function(req, res) {
       });
     }
   );
-  
-  var options = {
-    port:      app.get('port'),
-    setup:     true, 
-    basicAuth: null
-  }
-  
+ 
   var data = {
     name:       req.files.userFile.name,
     uploader:   app.get('name'),
-    tags:       'a',
-    url:        'http://'
+    tags:       ['a', 'b', 'c'],
+    url:        'files/' + req.files.userFile.name
   }
-  
-  database.setupAdd(options, data, function (err, db) {
+ 
+  database.addEntry(app.get('db'), data, function (err, db) {
     if (err) {
-      //return callback(err);
+      res.send({error: 'Could not add entry in db'});
+      return;
     }
+    //app.set('db', db);
+    // Migh need to periodically check database in case it was changed manually
   });
 });
 
 app.get('/list', function(req, res) {
+/*
   var context = {
     title: "Listing stuff, wooo!",
     files: [
@@ -124,11 +138,34 @@ app.get('/list', function(req, res) {
       }
     ]
   };
-  fs.readFile('public/list.html', 'utf8', function(err, data) {
-    if (err) res.send('something got messed up...');
-    var template = handlebars.compile(data);
-    res.setHeader('Content-Type', 'text/html');
-    res.send(template(context));
+ */
+  //var dfd = jQuery.Deferred();
+  database.listAll(app.get('db'), function (err, arr) {
+    if (err) {
+      res.send({error: 'Failed to get list from db'});
+    }
+   // console.dir(arr);
+   
+  /*  var context2 = {
+      title: 'Database Contents',
+      files: arr
+    }
+    //database.listAll2(app.get('db'), function (err, b){});
+    fs.readFile('public/list.html', 'utf8', function(err3, data) {
+      if (err3) res.send('something got messed up...');
+      var template = handlebars.compile(data);
+      res.setHeader('Content-Type', 'text/html');
+      res.send(template(context2));
+    });*/
+  });
+  
+  database.listAll2(app.get('db'), function (err, res) {
+    if (err) {
+      res.send({error: 'Failed to get list from db'});
+      return;
+    }
+    
+  //  console.dir(res);
   });
 });
 
