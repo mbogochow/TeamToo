@@ -94,49 +94,19 @@ app.get('/logout', function(req, res) {
     // redirect user to homepage
     res.redirect('/');
 });
-/*
-app.post('/upload2', function(req, res) {
-//console.dir(req);
-  var serverPath = '/files/' + req.files.userFile.name;
- //console.log(process.cwd() + '/public');
-  require('fs').rename(
-    req.files.userFile.path,
-    process.cwd() + '/public' + serverPath,
-    function(error) {
-      if(error) {
-        res.send({
-          error: 'Something bad happened  in app.js app.post fs.rename'
-        });
-        return;
-      }
-   
-      res.send({
-        path: serverPath
-      });
-    }
-  );
+
+app.post('/list', function(req, res) {
+  console.dir('search for: ' + req.body.query);
   
-  var data = {
-    name:       req.files.userFile.name,
-    uploader:   req.session.username,
-    tags:       (req.body.tags).split(','),
-    url:        'files/' + req.files.userFile.name
-  }
- 
-  database.addEntry(app.get('db'), data, function (err, db) {
+  database.search(app.get('db'), req.body.query, function (err, doc) {
     if (err) {
-      res.send({error: 'Could not add entry in db'});
+      console.dir(err);
+      res.send({error: 'Error searching:\n' });
       return;
     }
-    //app.set('db', db);
-    // Migh need to periodically check database in case it was changed manually
+    
+    console.dir(doc);
   });
-    res.redirect('/list');
-});*/
-
-app.post('/redir', function(req, res) {
-console.dir('here');
-  res.redirect('/list');
 });
 
 app.get('/list', function(req, res) {
@@ -169,14 +139,19 @@ app.get('/upload2', function(req,res) {
 
 
 app.post('/upload2', function(req,res) {
-  console.dir(req.files.file._writeStream.path);
+  //console.dir(req.files.file._writeStream.path);
+  var tagsArr = (req.body.tags).split(',');
+  for (var i = 0; i < tagsArr.length; i++)
+  {
+    tagsArr[i] = tagsArr[i].trim();
+  }
   var data = {
     name:       req.files.file.name,
     uploader:   req.session.username,
-    tags:       (req.body.tags).split(','),
+    tags:       tagsArr,
     url:        'files' + req.files.file._writeStream.path.split('\\files')[1]
   }
- console.dir('files' + req.files.file._writeStream.path.split('\\files')[1]);
+ //console.dir('files' + req.files.file._writeStream.path.split('\\files')[1]);
   database.addEntry(app.get('db'), data, function (err, db) {
     if (err) {
       res.send({error: 'Could not add entry in db'});
