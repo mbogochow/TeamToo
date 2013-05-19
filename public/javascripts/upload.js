@@ -24,7 +24,7 @@ $(document).ready(function() {
             dataType: 'text',
             
             error: function(xhr) {
-                status('Error: ' + xhr.status);
+               // status('Error: ' + xhr.status);
             },
             
             success: function(response) {
@@ -42,6 +42,7 @@ $(document).ready(function() {
               }
 
               var imageUrlOnServer = response.path;
+              $('#back').submit();
               
              // status('Success, file uploaded.');// to: ' + imageUrlOnServer);
               //$('<img/>').attr('src', imageUrlOnServer).appendTo($('body'));

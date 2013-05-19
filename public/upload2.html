@@ -7,7 +7,7 @@
   <body>
     <div class="row-fluid">
       <div class="well span6 offset3">
-        <form id="uploadForm" action="/files" method="post" enctype="multipart/form-data" class="form-horizontal">
+        <form id="uploadForm" action="/upload2" method="post" enctype="multipart/form-data" class="form-horizontal">
           <legend>File Upload</legend>
           <div class="control-group">
             <label class="control-label">File</label>
@@ -18,7 +18,8 @@
             <div class="controls"><input type="text" class="input" name="tags" id="tagger"/></div>
           </div>
             <center>
-              <input type="submit" action="/files" class="btn btn-primary" />
+              <input type="submit" action="/upload2" class="btn btn-primary" />
+              <!--<input id="back" type="submit" action="/redir" class="btn btn-primary"/>-->
             </center>
         </form>
       </div>

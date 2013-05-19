@@ -95,7 +95,7 @@ app.get('/logout', function(req, res) {
     res.redirect('/');
 });
 
-app.post('/files', function(req, res) {
+app.post('/upload2', function(req, res) {
 //console.dir(req);
   var serverPath = '/files/' + req.files.userFile.name;
  //console.log(process.cwd() + '/public');
@@ -131,6 +131,12 @@ app.post('/files', function(req, res) {
     //app.set('db', db);
     // Migh need to periodically check database in case it was changed manually
   });
+    res.redirect('/list');
+});
+
+app.post('/redir', function(req, res) {
+console.dir('here');
+  res.redirect('/list');
 });
 
 app.get('/list', function(req, res) {
@@ -161,12 +167,14 @@ app.get('/upload2', function(req,res) {
   sendFile('upload2.html', res);
 });
 
+/*
 app.post('/upload2', function(req,res) {
   console.dir(req.files.file._writeStream.path);
   //console.dir(req.body.tags.split(/[\W,]+/));
   //console.dir(req.session.username);
   res.redirect('/list');
 });
+*/
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
