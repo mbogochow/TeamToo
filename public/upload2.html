@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/customizers.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="row-fluid">
+      <div class="well span6 offset3">
+        <form action="/upload2" method="post" enctype="multipart/form-data" class="form-horizontal">
+          <legend>File Upload</legend>
+          <div class="control-group">
+            <label class="control-label">File</label>
+            <div class="controls"><input type="file" name="file" /></div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Tags <small>(comma separated)</small></label>
+            <div class="controls"><input type="text" class="input" name="tags" /></div>
+          </div>
+            <center><input type="submit" class="btn btn-primary" /></center>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

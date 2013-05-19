@@ -18,7 +18,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));
-app.use(express.bodyParser());
+app.use(express.bodyParser({uploadDir: './public/files'}));
 app.use(express.methodOverride());
 app.use(express.cookieParser('your secret here'));
 app.use(express.session());
@@ -47,7 +47,7 @@ database.setup(options, function (err, db) {
 });
 
 //simple function for loading a file and sending to a client
-//for use in app.<VERB> callbacks
+//for use in app.<VERB> callbacks when requesting a static page
 function sendFile(filename, res) {
   fs.readFile('public/' + filename, function(err, data) {
     if (err) return res.send('Could not open ' + filename + '...');
@@ -80,6 +80,9 @@ app.get('/contactus', function(req,res) {
 
 // show upload form
 app.get('/upload', function(req, res){
+  if (req.session.username === undefined ||
+      req.session.username === '')
+    return res.redirect('/');
   sendFile('upload.html', res);
   app.set('name', req.session.username);
 });
@@ -130,60 +133,38 @@ app.post('/files', function(req, res) {
 });
 
 app.get('/list', function(req, res) {
-/*
-  var context = {
-    title: "Listing stuff, wooo!",
-    files: [
-      {
-        title: "Dear Clarissa",
-        url: "files/clarissa.txt",
-        tags: [
-          "bitches ain't shit",
-          "Sowles, you sly dog",
-          "lorem",
-          "ipsum"
-        ]
-      },
-      {
-        title: "Brighton Boys",
-        url: "files/inthetrenches.txt",
-        tags: [
-          "pew pew",
-          "oh snap my leg's gone",
-          "a third tag"
-        ]
-      }
-    ]
-  };
- */
-  //var dfd = jQuery.Deferred();
+  if (req.session.username === undefined ||
+      req.session.username === '')
+    return res.redirect('/');
+    
   database.listAll(app.get('db'), function (err, arr) {
-    if (err) {
-      res.send({error: 'Failed to get list from db'});
-    }
-   // console.dir(arr);
+    if (err) res.send({error: 'Failed to get list from db'});
    
-    var context2 = {
+    var context = {
       files: arr
     }
-    console.dir(context2.files[0].value);
-    //database.listAll2(app.get('db'), function (err, b){});
-    fs.readFile('public/list.html', 'utf8', function(err3, data) {
-      if (err3) res.send('something got messed up...');
+
+    fs.readFile('public/list.html', 'utf8', function(err, data) {
+      if (err) res.send('something got messed up...');
       var template = handlebars.compile(data);
       res.setHeader('Content-Type', 'text/html');
-      res.send(template(context2));
+      res.send(template(context));
     });
   });
-  /*
-  database.listAll2(app.get('db'), function (err, res) {
-    if (err) {
-      res.send({error: 'Failed to get list from db'});
-      return;
-    }
-    */
-  //  console.dir(res);
-  //});
+});
+
+app.get('/upload2', function(req,res) {
+  if (req.session.username === undefined ||
+      req.session.username === '')
+    return res.redirect('/');
+  sendFile('upload2.html', res);
+});
+
+app.post('/upload2', function(req,res) {
+  console.dir(req.files.file._writeStream.path);
+  //console.dir(req.body.tags.split(/[\W,]+/));
+  //console.dir(req.session.username);
+  res.redirect('/list');
 });
 
 http.createServer(app).listen(app.get('port'), function(){
