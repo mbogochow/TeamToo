@@ -1,9 +1,24 @@
 {
-  "name": "application-name",
+  "name": "TeamToo",
   "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "start": "node app.js"
+  "description" : "A file repository with automatic tagging written in Node.js",
+  "author" : "Too",
+  "contributors" : [ {
+    "name" : "Dan Bolan",
+    "email" : "daniel.c.bolan@gmail.com",
+    "url" : "https://github.com/danielbolan"
+  }, {
+    "name" : "Mike Bogochow",
+    "email" : "mbogochow@hotmail.com",
+    "url" : "https://github.com/mbogochow"
+  }, {
+    "name" : "Kmanc",
+    "url" : "https://github.com/Kmanc"
+  } ],
+  "license" : "MIT",
+  "repository" : {
+    "type" : "git",
+    "url" : "git://github.com/mbogochow/TeamToo.git"
   },
   "dependencies": {
     "express": "3.2.4",
