@@ -1,6 +1,7 @@
 {
   "name": "TeamToo",
   "version": "0.0.1",
+  "description" : "A file repository with automatic tagging written in Node.js",
   "author" : "Too",
   "contributors" : [ {
     "name" : "Dan Bolan",
