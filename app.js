@@ -7,7 +7,8 @@ var express = require('express')
   , path = require('path')
   , database = require('./lib/database')
   , fs = require('fs')
-  , handlebars = require('handlebars');
+  , handlebars = require('handlebars')
+  , os = require('os');
 
 var store = require("./routes/store");
 var app = express();
@@ -149,8 +150,13 @@ app.post('/upload2', function(req,res) {
     name:       req.files.file.name,
     uploader:   req.session.username,
     tags:       tagsArr,
-    url:        'files' + req.files.file._writeStream.path.split('/files')[1]
+    url:        'files' + req.files.file._writeStream.path.replace(/\\/gi, '/').split('/files')[1]
   }
+  
+//  var pth = req.files.file._writeStream.path;
+//  console.log(pth);
+//  console.log(pth.replace(/\\/gi, '/'));
+  
  //console.dir('files' + req.files.file._writeStream.path.split('/files')[1]);
   database.addEntry(app.get('db'), data, function (err, db) {
     if (err) {
